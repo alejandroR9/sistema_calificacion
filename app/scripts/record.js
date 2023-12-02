@@ -1,19 +1,18 @@
 import {
   obtnerRegistros,
-  obtnerAlumnosCursos,
+  obtnerAlumnosParaNotasCursos
 } from "./funcionReutilizables.js";
 const nivel = document.getElementById("nivel");
 const periodo = document.getElementById("periodo");
 const docente = document.getElementById("login");
 const curso = document.getElementById("id_curso");
 const alumno = document.getElementById("id_curso_alumno");
-const nota = document.getElementById("nota");
-const descripcion = document.getElementById("descripcion");
 
-const modal = document.getElementById("register");
 let arrayNotas = [];
 let arrayNotasDescripcion = [];
 let color = [];
+
+let listaAlumnos = []
 
 let miChartJS = null;
 
@@ -42,7 +41,10 @@ const insertar = async (data) => {
       title: "Nota registrado",
       text: "La nota del alumno a sido registrado con éxito",
     });
-    await obtnerNotas("");
+    descripcion.value = ''
+    listaAlumnos = []
+    $("#exampleModal").modal("hide");
+    // await obtnerNotas("");
   }
 };
 
@@ -102,27 +104,6 @@ const obtnerNotas = async (search = "") => {
   await generarGrafico();
 };
 
-modal.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  if (parseFloat(nota.value) < 0 || parseFloat(nota.value) > 20) {
-    Swal.fire({
-      icon: "error",
-      title: "Error de nota",
-      text: "Por favor ingresa una valida del alumno",
-    });
-    return;
-  }
-  const data = {
-    id_periodo: periodo.value,
-    id_nivel: nivel.value,
-    idcurso: curso.value,
-    idalumno: alumno.value,
-    nota: nota.value,
-    descripcion: descripcion.value,
-  };
-  await insertar(data);
-  nota.value = "";
-});
 
 generarColor();
 const contenedorCanvas = document.getElementById("contenedor-canvas");
@@ -152,27 +133,83 @@ const generarGrafico = async (data) => {
   });
 };
 
-window.onload = async () => {
-  await obtnerRegistros(periodo.value, nivel.value, docente.value);
-  await obtnerAlumnosCursos(
+const mostrarAlumnos = async () => {
+  let body = ''
+  const alumnos = await obtnerAlumnosParaNotasCursos(
     periodo.value,
     nivel.value,
     curso.value,
-    docente.value
-  );
-  curso.addEventListener("change", async () => {
-    await obtnerAlumnosCursos(
-      periodo.value,
-      nivel.value,
-      curso.value,
-      docente.value
-    );
-    await generarGrafico(miChartJS);
-  });
-  await obtnerNotas("");
-  alumno.addEventListener("change", async () => {
-    await obtnerNotas("");
-    await generarGrafico(miChartJS);
-  });
-  await generarGrafico(miChartJS);
+    docente.value)
+    
+    alumnos.forEach(item => {
+      body += `
+      <div class="alumnos mb-3" key="${item.id}">
+        <h2 class="fs-4">${item.nombres} ${item.apellidos}</h2>
+        <input type="number" class="form-control" min="0" max="20" />
+      </div>
+      `
+    })
+    document.getElementById('dataAlumnos').innerHTML = body
+}
+
+const obtenerNotasDelFormulario = () => {
+  const alumnos = document.querySelectorAll('.alumnos')
+  alumnos.forEach(item => {
+    const id = item.getAttribute('key')
+    const nota = item.querySelector('input').value
+    if(nota === null || nota === '') {
+      return
+    }
+    const alumno = {
+      id:parseInt(id),
+      nombres:item.querySelector('h2').innerText,
+      nota:parseInt(nota)
+    }
+    const existe = listaAlumnos.some(item => item.id === parseInt(id))
+    if(!existe) {
+      listaAlumnos.push(alumno)      
+    }
+  })
+}
+const modal = document.getElementById('registrar')
+
+
+
+
+modal.addEventListener("click", async (e) => {
+  obtenerNotasDelFormulario()
+  e.preventDefault();
+  if (listaAlumnos.length <= 0) {
+    Swal.fire({
+      icon: "error",
+      title: "Error de notas",
+      text: "Por favor ingresa las notas del alumno",
+    });
+    return;
+  }
+  const data = {
+    id_periodo: periodo.value,
+    id_nivel: nivel.value,
+    idcurso: curso.value,
+    descripcion: descripcion.value,
+    notas:listaAlumnos
+  };
+  await insertar(data);
+  nota.value = "";
+});
+
+
+
+window.onload = async () => {
+  await obtnerRegistros(periodo.value, nivel.value, docente.value);
+  // curso.addEventListener("change", async () => {
+  //   await generarGrafico(miChartJS);
+  // });
+  // await obtnerNotas("");
+  // alumno.addEventListener("change", async () => {
+  //   await obtnerNotas("");
+  //   await generarGrafico(miChartJS);
+  // });
+  // await generarGrafico(miChartJS);
+  await mostrarAlumnos()
 };

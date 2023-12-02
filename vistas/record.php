@@ -18,52 +18,58 @@
         <h3 class="mb-3">Cafilicación de alumnos</h3>
         <div class="form-control">
             <div class="card-header">
-                <form id="register" autocomplete="off">
-                    <div class="mb-3 mt-2" style="display: flex; align-items: end;gap:1rem;flex-wrap: wrap;">
-                        <div style="min-width: 320px;">
-                            <label for="descripcion" class="form-label">Descripción de la nota</label>
-                            <input type="text" class="form-control" id="descripcion" placeholder="Descripción de la nota">
-                        </div>
-                        <div>
-                            <label for="nota" class="form-label">Ingresa la nota</label>
-                            <input type="number" class="form-control" min="0" id="nota" placeholder="Ingresa la nota del alumno">
-                        </div>
-                        <div>
-                            <label for="id_curso" class="form-label">Cursos</label>
-                            <select class="form-select" id="id_curso" aria-label="Default select example">
-                            </select>
-                        </div>
-                        <div>
-                            <label for="id_curso_alumno" class="form-label">Alumnos</label>
-                            <select class="form-select" id="id_curso_alumno" aria-label="Default select example">
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Nueva calificación</button>
+                <div class="mb-3 mt-2" style="display: flex; align-items: end;gap:1rem;flex-wrap: wrap;">
+                    <div>
+                        <label for="id_curso" class="form-label">Cursos</label>
+                        <select class="form-select" id="id_curso" aria-label="Default select example">
+                        </select>
                     </div>
-                </form>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearNotas" data-bs-whatever="@mdo">Nueva calificación</button>
+                </div>
             </div>
-            <div class="card-body  over-flow-auto">
-                <table class="table table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Nota</th>
-                            <th scope="col">Fecha</th>
-                            <!-- <th scope="col" class="text-end">Acciones</th> -->
-                        </tr>
-                    </thead>
-                    <tbody id="dataBody">
+        </div>
+        <div class="card-body  over-flow-auto">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Nota</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody id="dataBody">
 
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
         </div>
         <!-- aqui vamos a crear el chart -->
         <div id="contenedor-canvas">
-        <canvas id="grafico"></canvas>
+            <canvas id="grafico"></canvas>
         </div>
     </main>
+    <!-- detalles del temario -->
+    <div class="modal fade" id="crearNotas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Asignar notas</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="px-4">
+                    <label for="descripcion" class="form-label">Descripción de la nota</label>
+                    <input type="text" class="form-control" id="descripcion" placeholder="Descripción de la nota">
+                </div>
+                <div class="modal-body" id="dataAlumnos">
+
+                </div>
+                <div class="p-4">
+                    <button class="btn btn-primary" id="registrar">Registrar notas</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="./assets/js/header.js"></script>
     <script src="./app/scripts/record.js" type="module"></script>

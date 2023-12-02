@@ -3,9 +3,9 @@ class Conexion {
     private static $conexion = null;
     
     private function __construct() {
-        $dsn = "mysql:host=localhost;dbname=cole";
+        $dsn = "mysql:host=localhost;dbname=colegio";
         $usuario = "root";
-        $contrasena = "";
+        $contrasena = "123456";
         
         try {
             self::$conexion = new PDO($dsn, $usuario, $contrasena);

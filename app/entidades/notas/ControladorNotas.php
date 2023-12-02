@@ -11,13 +11,13 @@ class ControladorNotas {
      * @param object Datos en formato de objeto
      */
     public function crearNotas($data) {
-        if($data['nota'] == '') {
+        if($data['descripcion'] == '') {
             echo  ApiResponse::error('nota vacio',422);
             return;
         }
         // mas validaciones.....
 
-        $resultado =  $this->modelo->crearNotas($data['id_periodo'],$data['id_nivel'],$data['idcurso'] , $data['idalumno'],$data['nota'],$data['descripcion']);
+        $resultado =  $this->modelo->crearNotas($data['id_periodo'],$data['id_nivel'],$data['idcurso'] , $data['notas'],$data['descripcion']);
         if($resultado){
             echo ApiResponse::success('success',false,200);
         }

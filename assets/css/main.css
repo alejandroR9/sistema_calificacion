@@ -321,6 +321,16 @@
 #grafico{
     max-height: 300px;
 }
+.alumnos{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+.alumnos input {
+    max-width: 60px;
+}
+
 
 
 

@@ -10,20 +10,26 @@ class ModeloNotas
         $this->db = Conexion::obtenerConexion();
     }
 
-    public function crearNotas($id_periodo, $id_nivel, $idcurso, $idalumno, $nota, $descripcion)
+    public function crearNotas($id_periodo, $id_nivel, $idcurso, $notas, $descripcion)
     {
-        $sql = "INSERT INTO notas (id_periodo,id_nivel,idcurso,idalumno,nota,descripcion) 
+        $resultado = null;
+
+        foreach ($notas as $value) {
+            $sql = "INSERT INTO notas (id_periodo,id_nivel,idcurso,idalumno,nota,descripcion) 
         VALUES (:id_periodo,:id_nivel,:idcurso,:idalumno,:nota,:descripcion)";
 
-        $query = $this->db->prepare($sql);
-        $query->bindParam(':id_periodo', $id_periodo);
-        $query->bindParam(':id_nivel', $id_nivel);
-        $query->bindParam(':idcurso', $idcurso);
-        $query->bindParam(':idalumno', $idalumno);
-        $query->bindParam(':nota', $nota);
-        $query->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
+            $query = $this->db->prepare($sql);
+            $query->bindParam(':id_periodo', $id_periodo);
+            $query->bindParam(':id_nivel', $id_nivel);
+            $query->bindParam(':idcurso', $idcurso);
+            $query->bindParam(':idalumno', $value['id']);
+            $query->bindParam(':nota', $value['nota']);
+            $query->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
 
-        $resultado = $query->execute();
+            $resultado = $query->execute();
+        }
+
+
         return $resultado;
     }
 

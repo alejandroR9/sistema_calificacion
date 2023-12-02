@@ -263,3 +263,24 @@ export const obtnerAlumnosCursos = async (periodo,nivel,idCurso, idDocente) => {
     document.getElementById("id_curso_alumno").innerHTML = body;
   }
 };
+
+
+
+/******************************************************************
+ * Funcion para ingresar notas
+ ******************************************************************/
+export const obtnerAlumnosParaNotasCursos = async (periodo,nivel,idCurso, idDocente) => {
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const respuesta = await fetch(
+    `./app/entidades/persona/http.php/?id_periodo=${periodo}&id_nivel=${nivel}&id_curso=${idCurso}&id_docente=${idDocente}`,
+    options
+  );
+  const respuestaData = await respuesta.json();
+  if (respuestaData.data.length <= 0) return []
+  return respuestaData.data
+};
