@@ -14,6 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $controlador->crearExamen($data);
     }
 } elseif ($_SERVER["REQUEST_METHOD"] === "GET") {
+    
+    // Obtener lista de examenes
+    if (isset($_GET['respuestas']) && isset($_GET['examen']) && isset($_GET['alumno'])) {
+        $data = $controlador->obtenerRespuestas($_GET['examen'], $_GET['alumno']);
+        header("Content-Type: application/json");
+        echo ApiResponse::success('success', false, 201, $data);
+    }
+
     // Obtener lista de examenes
     if (isset($_GET['id_examen']) && isset($_GET['id_alumno'])) {
         $data = $controlador->obtenerResultados($_GET['id_examen'], $_GET['id_alumno']);

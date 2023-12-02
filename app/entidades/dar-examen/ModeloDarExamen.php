@@ -140,6 +140,19 @@ class ModeloDarExamen
         $resultado =  $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+    public function obtenerRespuestas($idExamen, $idAlumno)
+    {
+        $sql = "SELECT de.descripcion, de.respuesta, dre.estado FROM resultado_examen_detalle dre 
+        INNER JOIN detalles_examen de ON 
+        de.id  = dre.id_detalle_examen 
+        INNER JOIN resultado_examen re ON 
+        re.id = dre.id_resultado 
+        WHERE re.id_alumno = $idAlumno AND de.id_examen = $idExamen";
+        $stmt = $this->db->query($sql);
+
+        $resultado =  $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 
     public function enviarCorreo($idAlumno, $idExamen, $nota, $tiempo, $estado)
     {

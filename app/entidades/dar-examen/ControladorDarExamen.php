@@ -44,4 +44,9 @@ class ControladorDarExamen
     {
         return $this->modelo->obtenerResultados($idExamen, $idAlumno);
     }
+
+    public function obtenerRespuestas($idExamen, $idAlumno)
+    {
+        return $this->modelo->obtenerRespuestas($idExamen, $idAlumno);
+    }
 }

@@ -188,7 +188,7 @@ export const examenesAlumnos = async (idAlumno) => {
       <a href="./dar-examen.php?examen=${item.id}" class="btn btn-success btn-sm badge">
       Empezar examen
   </a>
-        }
+        
       </td>
     </tr>
           `;

@@ -122,6 +122,40 @@ const obtnerRegistros = async (idExamen) => {
 /******************************************************************
  * Funcion para obtener el resultado del examen
  ******************************************************************/
+const obtenerRespuestasExamen = async (idExamen, idAlumno) => {
+  let body = "";
+  const options = {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const respuesta = await fetch(
+    `./app/entidades/dar-examen/http.php/?examen=${idExamen}&alumno=${idAlumno}&respuestas=true`,
+    options
+  );
+  const respuestaData = await respuesta.json();
+  if (respuestaData.data.length > 0) {
+    respuestaData.data.forEach((item, index) => {
+      body += `
+    <div class="card-body" >
+      <p>
+          <strong>Pregunta ${index + 1}</strong> ${item.descripcion} <div>${
+        item.estado === 1
+          ? '<strong class="text-success">Correcto</strong>'
+          : '<strong class="text-danger">Incorrecto</strong>'
+      }</div>
+        </p>
+    </div>
+            `;
+    });
+    document.getElementById("respuestas").innerHTML = body;
+  }
+};
+
+/******************************************************************
+ * Funcion para obtener el resultado del examen
+ ******************************************************************/
 const obtnerResultados = async (idExamen, idAlumno) => {
   siguiente.style.display = "none";
   enviar.style.display = "none";
@@ -158,9 +192,15 @@ const obtnerResultados = async (idExamen, idAlumno) => {
         </h3>
       </div>
     </div>
+    
+    <h5 class="card-title mb-3 px-3">
+        Respuestas
+    </h5>
+    <div id="respuestas"></div>
             `;
     });
     document.getElementById("preguntas").innerHTML = body;
+    await obtenerRespuestasExamen(idExamen, idAlumno);
   } else {
     siguiente.style.display = "inline-block";
     await obtnerRegistros(idExamen);
