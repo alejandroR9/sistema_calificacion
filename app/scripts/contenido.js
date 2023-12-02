@@ -29,6 +29,16 @@ const obtenerTemarios = async () => {
             <div class="accordion-body">
                 ${item.descripcion}
             </div>
+            <div class="p-4">${item.url_apk !== null?`
+            <div class="card-body">
+            <strong style="display:block">Requisitos:</strong>
+            ${item.descripcion_apk}
+            <strong  style="display:block">
+            Peso: ${item.peso_apk}MB
+            </strong>
+            <a href="${item.url_apk}" class="btn btn-primary btn-sm">Descargar APK</a>
+            </div>
+            `:''} </div>
         </div>
           `;
     });

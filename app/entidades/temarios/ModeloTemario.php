@@ -9,10 +9,10 @@ class ModeloTemario
         $this->db = Conexion::obtenerConexion();
     }
 
-    public function crearTemario($id_curso,$titulo,$descripcion,$url_apk)
+    public function crearTemario($id_curso,$titulo,$descripcion,$url_apk,$descripcion_apk,$peso_apk)
     {
-        $sql = "INSERT INTO temario (id_curso,titulo,descripcion,url_apk) 
-        VALUES (:id_curso,:titulo,:descripcion,:url_apk)";
+        $sql = "INSERT INTO temario (id_curso,titulo,descripcion,url_apk,descripcion_apk,peso_apk) 
+        VALUES (:id_curso,:titulo,:descripcion,:url_apk,:descripcion_apk,:peso_apk)";
 
 
         $query = $this->db->prepare($sql);
@@ -20,6 +20,8 @@ class ModeloTemario
         $query->bindParam(':titulo', $titulo, PDO::PARAM_STR);
         $query->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
         $query->bindParam(':url_apk', $url_apk, PDO::PARAM_STR);
+        $query->bindParam(':descripcion_apk', $descripcion_apk, PDO::PARAM_STR);
+        $query->bindParam(':peso_apk', $peso_apk);
 
         $resultado = $query->execute();
         return $resultado;
@@ -27,7 +29,7 @@ class ModeloTemario
 
     public function obtenerTemarios($search = '')
     {
-        $sql = "SELECT c.*, n.nivel, n.numero_de_nivel,t.url_apk FROM temario t  
+        $sql = "SELECT c.*, n.nivel, n.numero_de_nivel,t.url_apk,t.descripcion_apk,t.peso_apk FROM temario t  
         INNER JOIN cursos c ON 
         c.id = t.id_curso
         INNER JOIN nivel_academico n ON 

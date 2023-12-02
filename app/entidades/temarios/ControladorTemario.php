@@ -15,7 +15,7 @@ class ControladorTemario {
             echo  ApiResponse::error('titulo vacio',422);
         }
 
-        $resultado =  $this->modelo->crearTemario($data['id_curso'],$data['titulo'],$data['descripcion'],$data['url_apk']);
+        $resultado =  $this->modelo->crearTemario($data['id_curso'],$data['titulo'],$data['descripcion'],$data['url_apk'],$data['descripcion_apk'],$data['peso_apk']);
         if($resultado){
             echo ApiResponse::success('success',false,200);
         }

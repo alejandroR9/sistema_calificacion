@@ -5,6 +5,11 @@ const id_curso = document.getElementById("id_curso");
 const titulo = document.getElementById("titulo");
 const descripcion = document.getElementById("descripcion");
 const url_apk = document.getElementById("url_apk");
+const descripcion_apk = document.getElementById("descripcion_apk");
+const peso_apk = document.getElementById("peso_apk");
+
+
+
 
 //Esta variabe identifica si se hara un registro o una modificacion
 let action = "guardar";
@@ -19,6 +24,8 @@ const insertar = async (data) => {
   formData.append('descripcion', data.descripcion);
   formData.append('id_curso', data.id_curso);
   formData.append('url_apk', url_apk.files[0]); // Agrega la imagen
+  formData.append('descripcion_apk', data.descripcion_apk); // Agrega la imagen
+  formData.append('peso_apk', data.peso_apk); // Agrega la imagen
   const options = {
     method: "POST",
     body: formData,
@@ -134,11 +141,22 @@ const obtenerTemarios = async (id) => {
         <div class="card mb-3">
           <div class="card-body">
             <h5 class="card-title">${item.titulo}</h5>
-            <div>${item.url_apk !== null?`<a href="${item.url_apk}" class="btn btn-primary btn-sm">Descargar APK</a>`:''} </div>
             <p class="card-text">${item.descripcion}</p>
             <button type="button" class="btn btn-danger btn-sm" onClick="eliminar(${item.id})">
                 Eliminar
             </button>
+
+            
+            <div class="mt-3">${item.url_apk !== null?`
+            <div class="card-body">
+            <strong style="display:block">Requisitos:</strong>
+            ${item.descripcion_apk}
+            <strong  style="display:block">
+            Peso: ${item.peso_apk}MB
+            </strong>
+            <a href="${item.url_apk}" class="btn btn-primary btn-sm">Descargar APK</a>
+            </div>
+            `:''} </div>
           </div>
         </div>
         `;
@@ -226,6 +244,8 @@ modal.addEventListener("submit", async (e) => {
     descripcion: descripcion.value,
     id_curso: id_curso.value,
     url_apk: url_apk.value,
+    descripcion_apk: descripcion_apk.value,
+    peso_apk: parseFloat(peso_apk.value),
   };
   if (action === "guardar") {
     await insertar(data);

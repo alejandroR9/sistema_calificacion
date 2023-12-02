@@ -41,7 +41,7 @@
 
         <!-- registrar usuarios -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm">
+            <div class="modal-dialog modal-md">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Temarios</h1>
@@ -60,11 +60,20 @@
                             </div>
                             <div class="mb-3">
                                 <label for="descripcion" class="form-label">Descripción:</label>
-                                <textarea  id="descripcion" cols="30" rows="5" class="form-control" placeholder="Descripción" minlength="2" required></textarea>
+                                <textarea  id="descripcion" cols="30" rows="2" class="form-control" placeholder="Descripción" minlength="2" required></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="url_apk" class="form-label">Cargar Apk</label>
                                 <input type="file" class="form-control" id="url_apk">
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion_apk" class="form-label">Descripción:</label>
+                                <textarea  id="descripcion_apk" cols="30" rows="2" class="form-control" placeholder="Descripción APK" minlength="2" required></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="peso_apk" class="form-label">Peso Apk:</label>
+                                <input type="number" class="form-control" value="0" id="peso_apk"  required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
