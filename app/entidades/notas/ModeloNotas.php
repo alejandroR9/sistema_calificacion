@@ -35,15 +35,28 @@ class ModeloNotas
 
     public function obtenerNotas($search = '', $id_periodo, $id_nivel, $idcurso, $idalumno)
     {
-        $sql = "SELECT *
-         FROM notas n 
-         WHERE descripcion 
-         LIKE '%$search%' 
-         AND id_periodo = $id_periodo 
-         AND id_nivel = $id_nivel 
-         AND idcurso = $idcurso 
-         AND idalumno = $idalumno
-         ORDER BY n.id DESC";
+        $sql = null;
+        if($idalumno != '') {
+            $sql= "SELECT *
+            FROM notas n 
+            WHERE descripcion 
+            LIKE '%$search%' 
+            AND n.id_periodo = $id_periodo 
+            AND n.id_nivel = $id_nivel 
+            AND n.idcurso = $idcurso 
+            AND n.idalumno = $idalumno  
+            ORDER BY n.id DESC";
+        } else {
+            
+            $sql= "SELECT *
+            FROM notas n 
+            WHERE descripcion 
+            LIKE '%$search%' 
+            AND n.id_periodo = $id_periodo 
+            AND n.id_nivel = $id_nivel 
+            AND n.idcurso = $idcurso 
+            ORDER BY n.id DESC";
+        }
         $stmt = $this->db->query($sql);
 
         $resultado =  $stmt->fetchAll(PDO::FETCH_ASSOC);

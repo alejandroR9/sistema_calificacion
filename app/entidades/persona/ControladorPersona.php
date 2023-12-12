@@ -32,8 +32,8 @@ class ControladorPersona {
     public function obtenerPersona($data) {
         return $this->modelo->obtenerPersona($data);
     }
-    public function obtenerPersonaCursos($idPeriodo, $idNivel, $idCurso, $idDocente) {
-        return $this->modelo->obtenerPersonaCursos($idPeriodo, $idNivel, $idCurso, $idDocente);
+    public function obtenerPersonaCursos($idPeriodo, $idNivel, $idCurso, $idDocente,$search) {
+        return $this->modelo->obtenerPersonaCursos($idPeriodo, $idNivel, $idCurso, $idDocente,$search);
     }
 
     public function actualizarPersona($data, $id) {

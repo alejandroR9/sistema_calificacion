@@ -24,9 +24,21 @@
                         <select class="form-select" id="id_curso" aria-label="Default select example">
                         </select>
                     </div>
+                    <div>
+                        <label for="id_alumnos" class="form-label">Buscar</label>
+                        <div class="position-relative">
+                            <input type="search" id="search" placeholder="Buscar alumnos por nombre">
+                            <div id="id_alumnos" class="content-search"  style="display: none;"></div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="btn btn-success" id="consultation">Consultar notas</button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearNotas" data-bs-whatever="@mdo">Nueva calificación</button>
                 </div>
             </div>
+            <h4  class="card-header py-3" id="promedio">
+                
+            </h4>
         </div>
         <div class="card-body  over-flow-auto">
             <table class="table table-striped table-hover">

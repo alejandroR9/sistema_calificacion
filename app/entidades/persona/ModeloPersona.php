@@ -89,10 +89,9 @@ class ModeloPersona
         return $resultado;
     }
 
-    public function obtenerPersonaCursos($idPeriodo, $idNivel, $idCurso, $idDocente)
+    public function obtenerPersonaCursos($idPeriodo, $idNivel, $idCurso, $idDocente,$search='')
     {
         try {
-
             $sql = "SELECT a.* 
         FROM detalle_matricula dm 
         INNER JOIN matricula m ON  
@@ -101,7 +100,7 @@ class ModeloPersona
         cd.id = dm.id_curso_docente 
         INNER JOIN persona a ON  
         a.id = m.id_alumno 
-        WHERE m.id_periodo_academico  = $idPeriodo 
+        WHERE   a.nombres LIKE '%$search%'   AND m.id_periodo_academico  = $idPeriodo 
         AND m.id_nivel  = $idNivel 
         AND cd.idcurso  = $idCurso 
         AND cd.id_docente  = $idDocente 

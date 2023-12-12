@@ -3,7 +3,7 @@ class Conexion {
     private static $conexion = null;
     
     private function __construct() {
-        $dsn = "mysql:host=localhost;dbname=colegio";
+        $dsn = "mysql:host=localhost;dbname=colegio_test";
         $usuario = "root";
         $contrasena = "123456";
         

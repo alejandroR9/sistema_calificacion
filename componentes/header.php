@@ -116,9 +116,16 @@ require_once './app/utilidades/ObtenerFechas.php';
                         </li>
                     </ul>
                 </li>
-                <li class="menu-item">
-                    <a href="./configuraciones.php" class="menu-link menu-sub-link">Configuraciones</a>
-                </li>
+                <?php
+                if ($login->getTipoUsuario() == 1) {
+                ?>
+
+                    <li class="menu-item">
+                        <a href="./configuraciones.php" class="menu-link menu-sub-link">Configuraciones</a>
+                    </li>
+                <?php
+                }
+                ?>
             </ul>
         </nav>
     </div>

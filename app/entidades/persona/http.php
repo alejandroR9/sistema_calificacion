@@ -22,7 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo ApiResponse::success('success', false, 201, $usuarios);
     } else if(isset($_GET['id_periodo']) && isset($_GET['id_nivel']) && isset($_GET['id_curso'])  && isset($_GET['id_docente'])) {
         // Obtener lista de usuarios
-        $usuarios = $controlador->obtenerPersonaCursos($_GET['id_periodo'],$_GET['id_nivel'] ,$_GET['id_curso'],$_GET['id_docente']);
+        $search = '';
+        if(isset($_GET['search'])){
+            $search =$_GET['search'];
+        }
+        $usuarios = $controlador->obtenerPersonaCursos($_GET['id_periodo'],$_GET['id_nivel'] ,$_GET['id_curso'],$_GET['id_docente'],$search);
         header("Content-Type: application/json");
         echo ApiResponse::success('success', false, 201, $usuarios);
     } else {

@@ -330,7 +330,22 @@
 .alumnos input {
     max-width: 60px;
 }
-
+.content-search{
+    position: absolute;
+    top: 100%;
+    z-index: 2;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #093d55;
+}
+.content-search div{
+    cursor: pointer;
+    padding: .5rem 1rem;
+}
+.content-search div:hover{
+    background-color: #093d554f;
+}
 
 
 

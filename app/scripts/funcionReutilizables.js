@@ -269,7 +269,7 @@ export const obtnerAlumnosCursos = async (periodo,nivel,idCurso, idDocente) => {
 /******************************************************************
  * Funcion para ingresar notas
  ******************************************************************/
-export const obtnerAlumnosParaNotasCursos = async (periodo,nivel,idCurso, idDocente) => {
+export const obtnerAlumnosParaNotasCursos = async (periodo,nivel,idCurso, idDocente,search='') => {
   const options = {
     method: "GET",
     headers: {
@@ -277,7 +277,7 @@ export const obtnerAlumnosParaNotasCursos = async (periodo,nivel,idCurso, idDoce
     },
   };
   const respuesta = await fetch(
-    `./app/entidades/persona/http.php/?id_periodo=${periodo}&id_nivel=${nivel}&id_curso=${idCurso}&id_docente=${idDocente}`,
+    `./app/entidades/persona/http.php/?search=${search}&id_periodo=${periodo}&id_nivel=${nivel}&id_curso=${idCurso}&id_docente=${idDocente}`,
     options
   );
   const respuestaData = await respuesta.json();
